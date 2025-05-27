@@ -1,7 +1,17 @@
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
+
+/* Optional: Global styles */
 body {
   font-family: 'Poppins', sans-serif;
-  background-color: #FFFDF5;
+  background-color: #FFFDF5; /* OR use Tailwind's class `bg-background` in components */
+  color: #103713;            /* OR use Tailwind's class `text-primary` in components */
+  margin: 0;
+  padding: 0;
 }
 
+* {
+  box-sizing: border-box;
+}
