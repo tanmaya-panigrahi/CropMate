@@ -8,7 +8,7 @@ export default function DesktopSidebar() {
 
   return (
     <aside
-      className={`h-screen hidden md:flex flex-col transition-all duration-300
+      className={` fixed min-h-screen hidden md:flex flex-col transition-all duration-300
     ${isOpen ? "w-64" : "w-20"} 
     bg-[#103713] text-[#FFFDF5] border-r border-muted`}
     >
