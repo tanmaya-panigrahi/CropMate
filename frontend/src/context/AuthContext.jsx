@@ -21,10 +21,7 @@ export const AuthProvider = ({ children }) => {
         try {
             const userCredential = await createUserWithEmailAndPassword(auth, email, password);
             await updateProfile(userCredential.user, { displayName: name });
-            setUser({
-                ...userCredential.user,
-                displayName: name // Explicitly set displayName
-            });
+            setUser(auth.currentUser); 
             return userCredential;
         } catch (error) {
             throw error; // let the UI handle this
@@ -55,7 +52,9 @@ export const AuthProvider = ({ children }) => {
 
     const loginWithGoogle = async () => {
         try {
-            await signInWithPopup(auth, googleProvider);
+            const result = await signInWithPopup(auth, googleProvider);
+            const currentUser = result.user;
+            setUser(currentUser);
         } catch (error) {
             console.error("Google sign-in error:", error.message);
             // Optional: show toast or popup error here
