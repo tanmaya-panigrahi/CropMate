@@ -1,5 +1,6 @@
 /* eslint-disable no-unused-vars */
-import { useState,useRef } from "react";
+import axios from "axios";
+import { useState, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Input } from "@/components/ui/input";
@@ -13,6 +14,7 @@ export default function Diagnose() {
   const [description, setDescription] = useState("");
   const [loading, setLoading] = useState(false);
   const [diagnosis, setDiagnosis] = useState(null);
+  const [errorMessage, setErrorMessage] = useState("");
   const navigate = useNavigate();
 
   const fileInputRef = useRef(null);
@@ -20,9 +22,22 @@ export default function Diagnose() {
 
   const handleFile = (file) => {
     if (!file) return;
+
+    const allowedTypes = ["image/jpeg", "image/png", "image/jpg"];
+    if (!allowedTypes.includes(file.type)) {
+      setErrorMessage("Only JPEG and PNG images are allowed.");
+      return;
+    }
+
+    if (file.size > 5 * 1024 * 1024) {
+      setErrorMessage("Image size must be under 5MB.");
+      return;
+    }
+
     setImage(file);
     setPreviewUrl(URL.createObjectURL(file));
     setDiagnosis(null);
+    setErrorMessage("");
   };
 
   const handleDrop = (e) => {
@@ -34,17 +49,51 @@ export default function Diagnose() {
 
   const handleTakePhoto = (e) => handleFile(e.target.files[0]);
 
-  const runDiagnosis = () => {
+  const runDiagnosis = async () => {
+    if (!image) return;
+
     setLoading(true);
-    setTimeout(() => {
+    setErrorMessage("");
+    setDiagnosis(null);
+
+    const formData = new FormData();
+    formData.append("image", image);
+    formData.append("description", description);
+
+    try {
+      const response = await axios.post(
+        "http://localhost:5000/api/diagnose",
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+
+      const { disease, imageUrl, explanation, message } = response.data;
+
       setDiagnosis({
-        cause: "Fungal infection due to overwatering",
-        cure: "Apply fungicide, reduce watering frequency",
-        recoveryTime: "7-10 days",
+        disease,
+        imageUrl,
+        explanation,
+        message,
       });
+
+    } catch (error) {
+      console.error("Diagnosis error:", error);
+      const msg =
+        error?.response?.data?.details ||
+        error?.response?.data?.message ||
+        error?.message ||
+        "Something went wrong. Please try again.";
+      setErrorMessage(msg);
+    } finally {
       setLoading(false);
-    }, 2000);
+    }
   };
+
 
   const resetAll = () => {
     setImage(null);
@@ -148,6 +197,12 @@ export default function Diagnose() {
         </Button>
       )}
 
+      {errorMessage && (
+        <div className="text-red-600 border border-red-400 bg-red-100 px-4 py-2 rounded-md">
+          {errorMessage}
+        </div>
+      )}
+
       {/* Loader or Result */}
       {loading && (
         <div className="space-y-3">
@@ -158,18 +213,41 @@ export default function Diagnose() {
       )}
 
       {diagnosis && (
-        <div className="bg-white border border-green-200 rounded-xl p-4 space-y-2 shadow-sm">
-          <h2 className="text-lg font-semibold">Diagnosis Result</h2>
-          <p><strong>Cause:</strong> {diagnosis.cause}</p>
-          <p><strong>Cure:</strong> {diagnosis.cure}</p>
-          <p><strong>Recovery Time:</strong> {diagnosis.recoveryTime}</p>
+        <div className="bg-white border border-green-200 rounded-xl p-6 space-y-4 shadow-md">
+          <h2 className="text-xl font-bold text-green-800">Diagnosis Result</h2>
+
+          {diagnosis.imageUrl && (
+            <img
+              src={diagnosis.imageUrl}
+              alt="Diagnosed Crop"
+              className="w-full md:w-64 h-auto object-cover rounded-lg shadow"
+            />
+          )}
+
+          <div className="space-y-1">
+            <p className="text-sm text-muted-foreground">
+              <strong>Status:</strong> {diagnosis.message}
+            </p>
+            <p className="text-md font-medium text-gray-800">
+              <strong>Disease:</strong> {diagnosis.disease.replace(/_/g, ' ')}
+            </p>
+          </div>
+
+          <div className="prose max-w-none prose-sm text-gray-700">
+            {diagnosis.explanation
+              .split("\n\n")
+              .map((block, i) => (
+                <p key={i} dangerouslySetInnerHTML={{ __html: block.replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>") }} />
+              ))}
+          </div>
         </div>
       )}
+
 
       {/* History Button */}
       {diagnosis && (
         <div className="flex justify-end">
-          <Button variant="outline" className="flex items-center gap-2 bg-primary  text-background hover:bg-white hover:text-black"  onClick={() => navigate("/dashboard/history")}>
+          <Button variant="outline" className="flex items-center gap-2 bg-primary  text-background hover:bg-white hover:text-black" onClick={() => navigate("/dashboard/history")}>
             <History size={16} />
             View Diagnosis History
           </Button>

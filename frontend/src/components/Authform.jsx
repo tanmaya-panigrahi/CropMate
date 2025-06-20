@@ -11,6 +11,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useAuth } from "@/context/AuthContext";
 import { useToast } from "@/hooks/use-toast";
+import { getAuth } from "firebase/auth";
 
 export default function AuthForm({ type }) {
   const navigate = useNavigate();
@@ -41,8 +42,14 @@ export default function AuthForm({ type }) {
         toast({ title: "Logged in successfully!", variant: "default" });
       } else {
         await signupWithEmailPassword(data.email, data.password, data.name);
-        
+
         toast({ title: "Account created successfully!", variant: "default" });
+      }
+      const auth = getAuth();
+      const user = auth.currentUser;
+      if (user) {
+        const token = await user.getIdToken();
+        localStorage.setItem("token", token);
       }
       setTimeout(() => navigate("/dashboard"), 1000);
     } catch (error) {
@@ -58,6 +65,12 @@ export default function AuthForm({ type }) {
   const handleGoogleLogin = async () => {
     try {
       await loginWithGoogle();
+      const auth = getAuth();
+      const user = auth.currentUser;
+      if (user) {
+        const token = await user.getIdToken();
+        localStorage.setItem("token", token);
+      }
       toast({ title: "Logged in with Google!", variant: "default" });
       setTimeout(() => navigate("/dashboard"), 1000);
     } catch (error) {
@@ -68,6 +81,8 @@ export default function AuthForm({ type }) {
       });
     }
   };
+
+
 
   return (
     <div className="w-full max-w-md bg-card p-6 sm:p-8 rounded-2xl shadow-2xl space-y-6 border font-poppins mx-auto">

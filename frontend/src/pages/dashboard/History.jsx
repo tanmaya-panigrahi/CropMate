@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { mockHistory } from "@/constants/mockData";
+import { useState, useEffect } from "react";
+import axios from "axios";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -13,9 +13,30 @@ export default function History() {
   const [page, setPage] = useState(1);
   const [search, setSearch] = useState("");
   const [selectedEntry, setSelectedEntry] = useState(null);
+  const [historyData, setHistoryData] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  const filteredData = mockHistory.filter((entry) =>
-    entry.summary.disease.toLowerCase().includes(search.toLowerCase())
+  useEffect(() => {
+    const fetchHistory = async () => {
+      try {
+        const response = await axios.get("http://localhost:5000/api/history", {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        });
+        setHistoryData(response.data);
+      } catch (err) {
+        console.error("Error fetching history", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchHistory();
+  }, []);
+
+  const filteredData = historyData.filter((entry) =>
+    entry.disease?.toLowerCase().includes(search.toLowerCase())
   );
 
   const paginatedData = filteredData.slice(
@@ -29,7 +50,6 @@ export default function History() {
     <div className="p-4 md:p-6 lg:p-10 pb-20 md:pb-2">
       <h1 className="text-2xl font-semibold mb-4">Diagnosis History</h1>
 
-      {/* Search Bar */}
       <div className="mb-6 max-w-md">
         <Input
           type="text"
@@ -42,7 +62,11 @@ export default function History() {
         />
       </div>
 
-      {filteredData.length === 0 ? (
+      {loading ? (
+        <div className="flex flex-col items-center justify-center py-20 text-center text-muted-foreground">
+          <p className="text-xl font-semibold">Loading history...</p>
+        </div>
+      ) : filteredData.length === 0 ? (
         <div className="flex flex-col items-center justify-center py-20 text-center text-muted-foreground">
           <img
             src="/no-data.svg"
@@ -57,20 +81,24 @@ export default function History() {
       ) : (
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {paginatedData.map((entry) => (
-            <Card key={entry.id} className="shadow-sm">
+            <Card key={entry._id} className="shadow-sm">
               <CardContent className="p-4 space-y-3">
                 <img
-                  src={entry.image}
+                  src={entry.imageUrl}
                   alt="diagnosis"
                   className="w-full h-40 object-cover rounded-md"
                 />
                 <p className="text-sm text-muted-foreground">
-                  {format(new Date(entry.date), "PPpp")}
+                  {format(new Date(entry.createdAt), "PPpp")}
                 </p>
                 <div>
-                  <p><span className="font-semibold">Disease:</span> {entry.summary.disease}</p>
-                  <p><span className="font-semibold">Cause:</span> {entry.summary.cause.slice(0, 40)}...</p>
-                  <p><span className="font-semibold">Cure:</span> {entry.summary.cure.slice(0, 40)}...</p>
+                  <p>
+                    <span className="font-semibold">Disease:</span> {entry.disease}
+                  </p>
+                  <p>
+                    <span className="font-semibold">Explanation:</span>{" "}
+                    {entry.explanation?.slice(0, 40)}...
+                  </p>
                 </div>
                 <Dialog>
                   <DialogTrigger asChild>
@@ -82,23 +110,31 @@ export default function History() {
                       <Eye className="h-4 w-4" /> View Details
                     </Button>
                   </DialogTrigger>
-                  <DialogContent className="max-w-lg">
+                  <DialogContent className="max-w-lg max-h-[80vh] overflow-y-auto">
                     {selectedEntry && (
-                      <div className="space-y-4 ">
+                      <div className="space-y-4">
                         <img
-                          src={selectedEntry.image}
+                          src={selectedEntry.imageUrl}
                           alt="Full diagnosis"
                           className="w-full h-48 object-cover rounded-md"
                         />
                         <p className="text-sm text-muted-foreground">
-                          {format(new Date(selectedEntry.date), "PPpp")}
+                          {format(new Date(selectedEntry.createdAt), "PPpp")}
                         </p>
-                        <p><strong>Disease:</strong> {selectedEntry.summary.disease}</p>
-                        <p><strong>Cause:</strong> {selectedEntry.summary.cause}</p>
-                        <p><strong>Cure:</strong> {selectedEntry.summary.cure}</p>
+                        <p>
+                          <strong>Disease:</strong> {selectedEntry.disease}
+                        </p>
+                        <div className="prose prose-sm max-w-none text-gray-700">
+                          {selectedEntry.explanation
+                            .split("\n\n")
+                            .map((block, i) => (
+                              <p key={i}>{block}</p>
+                            ))}
+                        </div>
                       </div>
                     )}
                   </DialogContent>
+
                 </Dialog>
               </CardContent>
             </Card>
@@ -106,14 +142,12 @@ export default function History() {
         </div>
       )}
 
-      {/* Pagination */}
       {totalPages > 1 && (
         <div className="flex justify-center gap-4 mt-8">
           <Button
             variant="outline"
             disabled={page === 1}
             onClick={() => setPage((prev) => prev - 1)}
-            
           >
             <ChevronLeft className="h-4 w-4" /> Prev
           </Button>
@@ -129,6 +163,3 @@ export default function History() {
     </div>
   );
 }
-
-
-

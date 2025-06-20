@@ -17,6 +17,7 @@ import Crops from "@/pages/dashboard/Crops";
 import ChatBot from "@/pages/dashboard/ChatBot";
 import Profile from "@/pages/dashboard/Profile";
 import About from "@/pages/dashboard/About";
+import PlantDiseaseDetector from "./pages/dashboard/PlantDiseaseDetector";
 
 function App() {
   return (
@@ -58,6 +59,7 @@ function App() {
           <Route path="history" element={<History />} />
           <Route path="crops" element={<Crops />} />
           <Route path="chatbot" element={<ChatBot />} />
+          <Route path="plant-disease-detector" element={<PlantDiseaseDetector />} />
 
           {/* Topbar Dropdown Pages */}
           <Route path="profile" element={<Profile />} />
