@@ -42,11 +42,11 @@ export default function Overview() {
         const headers = { Authorization: `Bearer ${token}` };
 
         // Fetch stats
-        const statsRes = await axios.get("http://localhost:5000/api/dashboard/summary", { headers });
+        const statsRes = await axios.get( `${import.meta.env.VITE_API_URL}/api/dashboard/summary`, { headers });
         setStats(statsRes.data);
 
         // Fetch recent activity
-        const recentRes = await axios.get("http://localhost:5000/api/dashboard/recent", { headers });
+        const recentRes = await axios.get( `${import.meta.env.VITE_API_URL}/api/dashboard/recent`, { headers });
         setRecentActivity(recentRes.data);
       } catch (err) {
         console.error("Dashboard fetch error:", err);
