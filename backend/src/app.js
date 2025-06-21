@@ -18,7 +18,7 @@ const app = express();
 
 // Middleware
 app.use(cors({
-  origin: process.env.CLIENT_ORIGIN, // Your frontend URL
+  origin: process.env.CLIENT_ORIGIN || 'https://crop-mate-eight.vercel.app' , // Your frontend URL
   credentials: true
 }));
 app.use(json()); // Parse JSON
