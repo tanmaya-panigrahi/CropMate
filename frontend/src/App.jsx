@@ -14,7 +14,7 @@ import Overview from "@/pages/dashboard/Overview";
 import Diagnose from "@/pages/dashboard/Diagnose";
 import History from "@/pages/dashboard/History";
 import Crops from "@/pages/dashboard/Crops";
-import ChatBot from "@/pages/dashboard/ChatBot";
+import ChatBot from "@/pages/dashboard/Chatbot";
 import Profile from "@/pages/dashboard/Profile";
 import About from "@/pages/dashboard/About";
 import Error404 from "@/pages/Error404";
