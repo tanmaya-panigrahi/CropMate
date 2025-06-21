@@ -1,0 +1,576 @@
+[
+    {
+        "cropName": "Rice",
+        "scientificName": "Oryza sativa",
+        "category": "Cereal",
+        "climate": "Hot and humid, 20-35\u00b0C, requires abundant water",
+        "soilType": "Clayey loam or alluvial soil, good water retention",
+        "watering": "Requires standing water throughout growth period",
+        "growthDuration": "90-150 days",
+        "harvestTips": "Harvest when grains are hard and straw is yellow",
+        "commonDiseases": [
+            "Blast",
+            "Bacterial leaf blight",
+            "Sheath blight"
+        ],
+        "pests": [
+            "Stem borer",
+            "Brown planthopper",
+            "Leaf folder"
+        ],
+        "care": "Timely weeding, maintain water level, use resistant varieties"
+    },
+    {
+        "cropName": "Wheat",
+        "scientificName": "Triticum aestivum",
+        "category": "Cereal",
+        "climate": "Cool and dry, 10-25\u00b0C, requires clear weather at ripening",
+        "soilType": "Well-drained loamy or clay loam soil",
+        "watering": "Requires moderate watering at critical stages",
+        "growthDuration": "120-150 days",
+        "harvestTips": "Harvest when grains are hard and straw turns golden",
+        "commonDiseases": [
+            "Rust",
+            "Smut",
+            "Powdery mildew"
+        ],
+        "pests": [
+            "Termites",
+            "Aphids",
+            "Armyworm"
+        ],
+        "care": "Timely irrigation, control weeds, monitor for rust"
+    },
+    {
+        "cropName": "Maize",
+        "scientificName": "Zea mays",
+        "category": "Cereal",
+        "climate": "Warm, 18-27\u00b0C, requires good sunlight",
+        "soilType": "Well-drained fertile loamy soil",
+        "watering": "Needs sufficient moisture, especially at flowering",
+        "growthDuration": "90-120 days",
+        "harvestTips": "Harvest when husks are dry and kernels are hard",
+        "commonDiseases": [
+            "Downy mildew",
+            "Leaf blight"
+        ],
+        "pests": [
+            "Stem borer",
+            "Cutworm"
+        ],
+        "care": "Timely sowing, weed control, ensure good drainage"
+    },
+    {
+        "cropName": "Sorghum",
+        "scientificName": "Sorghum bicolor",
+        "category": "Cereal",
+        "climate": "Hot, arid to semi-arid, 25-32\u00b0C",
+        "soilType": "Well-drained loamy or sandy loam soil",
+        "watering": "Tolerates drought; light irrigation during flowering",
+        "growthDuration": "100-120 days",
+        "harvestTips": "Harvest when grains are firm and dry",
+        "commonDiseases": [
+            "Grain mold",
+            "Downy mildew"
+        ],
+        "pests": [
+            "Shoot fly",
+            "Stem borer"
+        ],
+        "care": "Thinning of seedlings, timely weeding"
+    },
+    {
+        "cropName": "Barley",
+        "scientificName": "Hordeum vulgare",
+        "category": "Cereal",
+        "climate": "Cool and dry, 12-25\u00b0C",
+        "soilType": "Sandy loam to loamy soils, well-drained",
+        "watering": "Requires minimal irrigation, mainly during booting stage",
+        "growthDuration": "100-140 days",
+        "harvestTips": "Harvest when grains are hard and straw is dry",
+        "commonDiseases": [
+            "Leaf rust",
+            "Smut"
+        ],
+        "pests": [
+            "Aphids",
+            "Armyworm"
+        ],
+        "care": "Apply balanced fertilizer, timely sowing"
+    },
+    {
+        "cropName": "Chickpea",
+        "scientificName": "Cicer arietinum",
+        "category": "Pulse",
+        "climate": "Cool, 15-25\u00b0C",
+        "soilType": "Sandy loam or clay loam, well-drained",
+        "watering": "Minimal irrigation; avoid waterlogging",
+        "growthDuration": "90-120 days",
+        "harvestTips": "Harvest when plants turn yellow and pods are dry",
+        "commonDiseases": [
+            "Wilt",
+            "Ascochyta blight"
+        ],
+        "pests": [
+            "Pod borer",
+            "Cutworm"
+        ],
+        "care": "Timely sowing, seed treatment to avoid wilt"
+    },
+    {
+        "cropName": "Pigeon pea",
+        "scientificName": "Cajanus cajan",
+        "category": "Pulse",
+        "climate": "Warm, 18-30\u00b0C",
+        "soilType": "Well-drained loamy soils",
+        "watering": "Needs minimal irrigation, tolerates drought",
+        "growthDuration": "150-210 days",
+        "harvestTips": "Harvest when most pods dry up",
+        "commonDiseases": [
+            "Wilt",
+            "Sterility mosaic"
+        ],
+        "pests": [
+            "Pod fly",
+            "Pod borer"
+        ],
+        "care": "Intercropping helps reduce pest damage"
+    },
+    {
+        "cropName": "Lentil",
+        "scientificName": "Lens culinaris",
+        "category": "Pulse",
+        "climate": "Cool, 15-25\u00b0C",
+        "soilType": "Loamy or clay loam soil",
+        "watering": "Requires irrigation at flowering and pod filling",
+        "growthDuration": "100-130 days",
+        "harvestTips": "Harvest when lower pods dry up",
+        "commonDiseases": [
+            "Rust",
+            "Wilt"
+        ],
+        "pests": [
+            "Aphids",
+            "Cutworm"
+        ],
+        "care": "Ensure timely sowing, use disease-free seeds"
+    },
+    {
+        "cropName": "Groundnut",
+        "scientificName": "Arachis hypogaea",
+        "category": "Oilseed",
+        "climate": "Warm, 25-30\u00b0C",
+        "soilType": "Sandy loam soil, well-drained",
+        "watering": "Moderate irrigation, avoid waterlogging",
+        "growthDuration": "100-130 days",
+        "harvestTips": "Harvest when leaves turn yellow and pods mature",
+        "commonDiseases": [
+            "Leaf spot",
+            "Rust"
+        ],
+        "pests": [
+            "Leaf miner",
+            "Aphids"
+        ],
+        "care": "Proper spacing, regular weeding"
+    },
+    {
+        "cropName": "Mustard",
+        "scientificName": "Brassica juncea",
+        "category": "Oilseed",
+        "climate": "Cool, 10-25\u00b0C",
+        "soilType": "Loamy soil, well-drained",
+        "watering": "Requires irrigation at flowering and pod formation",
+        "growthDuration": "90-120 days",
+        "harvestTips": "Harvest when pods turn yellow",
+        "commonDiseases": [
+            "White rust",
+            "Downy mildew"
+        ],
+        "pests": [
+            "Aphids",
+            "Cabbage caterpillar"
+        ],
+        "care": "Timely sowing, use resistant varieties"
+    },
+    {
+        "cropName": "Soybean",
+        "scientificName": "Glycine max",
+        "category": "Oilseed",
+        "climate": "Warm, 20-30\u00b0C",
+        "soilType": "Fertile well-drained loam or clay loam",
+        "watering": "Moderate irrigation; sensitive to waterlogging",
+        "growthDuration": "90-130 days",
+        "harvestTips": "Harvest when pods turn brown and dry",
+        "commonDiseases": [
+            "Rust",
+            "Yellow mosaic virus"
+        ],
+        "pests": [
+            "Stem fly",
+            "Girdle beetle"
+        ],
+        "care": "Ensure proper drainage, use certified seeds"
+    },
+    {
+        "cropName": "Sunflower",
+        "scientificName": "Helianthus annuus",
+        "category": "Oilseed",
+        "climate": "Warm, 20-30\u00b0C",
+        "soilType": "Loamy or sandy loam soil",
+        "watering": "Needs moisture during flowering and seed setting",
+        "growthDuration": "80-120 days",
+        "harvestTips": "Harvest when flower heads droop and back turns yellow",
+        "commonDiseases": [
+            "Downy mildew",
+            "Rust"
+        ],
+        "pests": [
+            "Helicoverpa",
+            "Aphids"
+        ],
+        "care": "Monitor for pests at flowering stage"
+    },
+    {
+        "cropName": "Tomato",
+        "scientificName": "Solanum lycopersicum",
+        "category": "Vegetable",
+        "climate": "Warm, 20-27\u00b0C",
+        "soilType": "Well-drained loamy soil rich in organic matter",
+        "watering": "Regular irrigation, avoid waterlogging",
+        "growthDuration": "60-90 days",
+        "harvestTips": "Harvest when fruits are red and firm",
+        "commonDiseases": [
+            "Late blight",
+            "Leaf curl"
+        ],
+        "pests": [
+            "Fruit borer",
+            "Whitefly"
+        ],
+        "care": "Provide staking, timely weeding"
+    },
+    {
+        "cropName": "Potato",
+        "scientificName": "Solanum tuberosum",
+        "category": "Vegetable",
+        "climate": "Cool, 15-20\u00b0C",
+        "soilType": "Well-drained sandy loam",
+        "watering": "Needs consistent moisture during tuber formation",
+        "growthDuration": "90-120 days",
+        "harvestTips": "Harvest when plants dry up and skins are firm",
+        "commonDiseases": [
+            "Late blight",
+            "Early blight"
+        ],
+        "pests": [
+            "Aphids",
+            "Cutworm"
+        ],
+        "care": "Hilling of soil around plants, disease monitoring"
+    },
+    {
+        "cropName": "Onion",
+        "scientificName": "Allium cepa",
+        "category": "Vegetable",
+        "climate": "Cool to mild warm, 12-25\u00b0C",
+        "soilType": "Fertile sandy loam, well-drained",
+        "watering": "Requires moderate watering at bulb formation",
+        "growthDuration": "100-150 days",
+        "harvestTips": "Harvest when tops dry and fall over",
+        "commonDiseases": [
+            "Downy mildew",
+            "Purple blotch"
+        ],
+        "pests": [
+            "Thrips",
+            "Onion fly"
+        ],
+        "care": "Proper spacing, rotate crop to avoid pests"
+    },
+    {
+        "cropName": "Cabbage",
+        "scientificName": "Brassica oleracea",
+        "category": "Vegetable",
+        "climate": "Cool, 15-20\u00b0C",
+        "soilType": "Loamy soil rich in organic matter",
+        "watering": "Regular irrigation, avoid water stagnation",
+        "growthDuration": "70-120 days",
+        "harvestTips": "Harvest when heads are firm and mature",
+        "commonDiseases": [
+            "Black rot",
+            "Downy mildew"
+        ],
+        "pests": [
+            "Cabbage looper",
+            "Aphids"
+        ],
+        "care": "Proper spacing, monitor pests"
+    },
+    {
+        "cropName": "Cauliflower",
+        "scientificName": "Brassica oleracea var. botrytis",
+        "category": "Vegetable",
+        "climate": "Cool, 15-20\u00b0C",
+        "soilType": "Well-drained loamy soil rich in humus",
+        "watering": "Moderate irrigation during curd formation",
+        "growthDuration": "90-120 days",
+        "harvestTips": "Harvest when curds are compact and white",
+        "commonDiseases": [
+            "Downy mildew",
+            "Black rot"
+        ],
+        "pests": [
+            "Cabbage caterpillar",
+            "Aphids"
+        ],
+        "care": "Blanch curds, timely weeding"
+    },
+    {
+        "cropName": "Okra",
+        "scientificName": "Abelmoschus esculentus",
+        "category": "Vegetable",
+        "climate": "Warm, 25-35\u00b0C",
+        "soilType": "Well-drained loamy soil",
+        "watering": "Moderate watering, sensitive to waterlogging",
+        "growthDuration": "50-70 days",
+        "harvestTips": "Harvest tender pods regularly",
+        "commonDiseases": [
+            "Yellow vein mosaic",
+            "Wilt"
+        ],
+        "pests": [
+            "Fruit borer",
+            "Aphids"
+        ],
+        "care": "Regular harvesting encourages yield"
+    },
+    {
+        "cropName": "Mango",
+        "scientificName": "Mangifera indica",
+        "category": "Fruit",
+        "climate": "Tropical, hot and dry season for flowering",
+        "soilType": "Deep well-drained loamy soil",
+        "watering": "Irrigation needed during fruit setting",
+        "growthDuration": "150-300 days depending on variety",
+        "harvestTips": "Harvest when fruits mature and change color",
+        "commonDiseases": [
+            "Powdery mildew",
+            "Anthracnose"
+        ],
+        "pests": [
+            "Fruit fly",
+            "Mango hopper"
+        ],
+        "care": "Prune trees after harvest, monitor pests"
+    },
+    {
+        "cropName": "Banana",
+        "scientificName": "Musa paradisiaca",
+        "category": "Fruit",
+        "climate": "Warm, humid tropical climate",
+        "soilType": "Fertile, well-drained loamy soil",
+        "watering": "Needs regular watering",
+        "growthDuration": "9-12 months",
+        "harvestTips": "Harvest when fingers are plump and green",
+        "commonDiseases": [
+            "Panama wilt",
+            "Sigatoka leaf spot"
+        ],
+        "pests": [
+            "Banana weevil",
+            "Aphids"
+        ],
+        "care": "Support plants, maintain soil fertility"
+    },
+    {
+        "cropName": "Guava",
+        "scientificName": "Psidium guajava",
+        "category": "Fruit",
+        "climate": "Tropical and subtropical, 23-28\u00b0C",
+        "soilType": "Well-drained sandy loam or alluvial soil",
+        "watering": "Irrigate during dry spells, especially at fruit development",
+        "growthDuration": "150-180 days",
+        "harvestTips": "Harvest when fruits are fully developed and change color slightly",
+        "commonDiseases": [
+            "Wilt",
+            "Anthracnose"
+        ],
+        "pests": [
+            "Fruit fly",
+            "Mealybug"
+        ],
+        "care": "Prune trees regularly, remove diseased branches"
+    },
+    {
+        "cropName": "Papaya",
+        "scientificName": "Carica papaya",
+        "category": "Fruit",
+        "climate": "Warm, frost-free regions, 25-30\u00b0C",
+        "soilType": "Well-drained sandy loam soil",
+        "watering": "Regular watering, especially during dry periods",
+        "growthDuration": "6-9 months",
+        "harvestTips": "Harvest when skin turns yellow-green and fruit softens slightly",
+        "commonDiseases": [
+            "Powdery mildew",
+            "Papaya mosaic virus"
+        ],
+        "pests": [
+            "Fruit fly",
+            "Aphids"
+        ],
+        "care": "Avoid waterlogging, use organic mulch"
+    },
+    {
+        "cropName": "Orange",
+        "scientificName": "Citrus sinensis",
+        "category": "Fruit",
+        "climate": "Subtropical, dry summers and mild winters",
+        "soilType": "Sandy loam, well-drained and rich in organic matter",
+        "watering": "Moderate irrigation during fruit setting",
+        "growthDuration": "240-300 days",
+        "harvestTips": "Harvest when fruits turn bright orange",
+        "commonDiseases": [
+            "Citrus canker",
+            "Greening disease"
+        ],
+        "pests": [
+            "Citrus psylla",
+            "Aphids"
+        ],
+        "care": "Balanced fertilization and pest management"
+    },
+    {
+        "cropName": "Sugarcane",
+        "scientificName": "Saccharum officinarum",
+        "category": "Commercial",
+        "climate": "Tropical and subtropical, 25-35\u00b0C",
+        "soilType": "Deep, well-drained loamy soil with good fertility",
+        "watering": "Requires frequent irrigation in dry season",
+        "growthDuration": "10-16 months",
+        "harvestTips": "Harvest when stalks are mature and sweet",
+        "commonDiseases": [
+            "Red rot",
+            "Smut"
+        ],
+        "pests": [
+            "Early shoot borer",
+            "Top borer"
+        ],
+        "care": "Timely irrigation and trash mulching"
+    },
+    {
+        "cropName": "Cotton",
+        "scientificName": "Gossypium spp.",
+        "category": "Commercial",
+        "climate": "Warm climate, 25-35\u00b0C with low humidity",
+        "soilType": "Black cotton soil or well-drained sandy loam",
+        "watering": "Moderate irrigation at critical stages",
+        "growthDuration": "150-180 days",
+        "harvestTips": "Harvest when bolls burst and lint is visible",
+        "commonDiseases": [
+            "Wilt",
+            "Leaf curl virus"
+        ],
+        "pests": [
+            "Bollworm",
+            "Aphids"
+        ],
+        "care": "Use of pheromone traps and resistant varieties"
+    },
+    {
+        "cropName": "Tea",
+        "scientificName": "Camellia sinensis",
+        "category": "Commercial",
+        "climate": "Cool to warm humid climate, 20-30\u00b0C",
+        "soilType": "Well-drained acidic soil rich in organic matter",
+        "watering": "Regular rainfall or irrigation required",
+        "growthDuration": "Plucked regularly throughout the year",
+        "harvestTips": "Pluck two leaves and a bud for best quality",
+        "commonDiseases": [
+            "Blister blight",
+            "Red rust"
+        ],
+        "pests": [
+            "Tea mosquito bug",
+            "Looper caterpillar"
+        ],
+        "care": "Regular pruning and shading"
+    },
+    {
+        "cropName": "Coffee",
+        "scientificName": "Coffea arabica",
+        "category": "Commercial",
+        "climate": "Cool tropical climate, 15-24\u00b0C with shade",
+        "soilType": "Well-drained, fertile loamy soil",
+        "watering": "Rain-fed, irrigation during dry spells",
+        "growthDuration": "6-9 months for fruiting",
+        "harvestTips": "Pick ripe red berries by hand",
+        "commonDiseases": [
+            "Coffee leaf rust",
+            "Berry disease"
+        ],
+        "pests": [
+            "Coffee borer",
+            "Green scale insect"
+        ],
+        "care": "Provide shade, regular pruning, and pest control"
+    },
+    {
+        "cropName": "Pea",
+        "scientificName": "Pisum sativum",
+        "category": "Vegetable",
+        "climate": "Cool, 10-25\u00b0C",
+        "soilType": "Well-drained loamy soil with organic matter",
+        "watering": "Light irrigation at flowering and pod formation",
+        "growthDuration": "60-90 days",
+        "harvestTips": "Harvest when pods are green and filled",
+        "commonDiseases": [
+            "Powdery mildew",
+            "Root rot"
+        ],
+        "pests": [
+            "Aphids",
+            "Cutworm"
+        ],
+        "care": "Avoid waterlogging, timely harvesting"
+    },
+    {
+        "cropName": "Brinjal",
+        "scientificName": "Solanum melongena",
+        "category": "Vegetable",
+        "climate": "Warm, 25-35\u00b0C",
+        "soilType": "Fertile, well-drained loamy soil",
+        "watering": "Regular watering during dry periods",
+        "growthDuration": "100-120 days",
+        "harvestTips": "Harvest when fruits are glossy and tender",
+        "commonDiseases": [
+            "Phomopsis blight",
+            "Wilt"
+        ],
+        "pests": [
+            "Shoot borer",
+            "Jassids"
+        ],
+        "care": "Avoid over-irrigation, use neem-based sprays"
+    },
+    {
+        "cropName": "Watermelon",
+        "scientificName": "Citrullus lanatus",
+        "category": "Fruit",
+        "climate": "Warm, dry climate, 25-35\u00b0C",
+        "soilType": "Sandy loam soil rich in organic matter",
+        "watering": "Moderate watering during fruit development",
+        "growthDuration": "80-100 days",
+        "harvestTips": "Harvest when tendril near fruit dries and bottom turns yellow",
+        "commonDiseases": [
+            "Fusarium wilt",
+            "Downy mildew"
+        ],
+        "pests": [
+            "Red pumpkin beetle",
+            "Aphids"
+        ],
+        "care": "Use mulch, avoid overhead watering"
+    }
+]

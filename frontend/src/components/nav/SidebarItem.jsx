@@ -14,19 +14,16 @@ export default function SidebarItem({ label, icon: Icon, href }) {
   const { isOpen } = useSidebarStore();
   const isActive = pathname === href;
 
+  const linkClasses = cn(
+    "group flex items-center px-3 py-2 rounded-md transition-all",
+    isOpen ? "gap-4 justify-start" : "justify-center",
+    isActive
+      ? "bg-[#628B35]/30 text-[#FFFDF5]" // active styles
+      : "text-[#E2DBD0] hover:bg-[#628B35]/10"
+  );
+
   const content = (
-    <NavLink
-      to={href}
-      className={({ isActive }) =>
-        cn(
-          "group flex items-center px-3 py-2 rounded-md transition-all",
-          isOpen ? "gap-4 justify-start" : "justify-center",
-          isActive
-            ? "bg-[#628B35]/30 text-[#FFFDF5]"
-            : "text-[#E2DBD0] hover:bg-[#628B35]/10"
-        )
-      }
-    >
+    <NavLink to={href} className={linkClasses}>
       <Icon className="w-5 h-5 shrink-0" />
       {isOpen && <span className="text-sm font-medium truncate">{label}</span>}
     </NavLink>
@@ -37,7 +34,17 @@ export default function SidebarItem({ label, icon: Icon, href }) {
   ) : (
     <TooltipProvider>
       <Tooltip delayDuration={200}>
-        <TooltipTrigger asChild>{content}</TooltipTrigger>
+        <TooltipTrigger asChild>
+          {/* ✅ This wrapper gives active background when sidebar is collapsed */}
+          <div
+            className={cn(
+              "w-full rounded-md",
+              isActive && "bg-[#628B35]/30"
+            )}
+          >
+            {content}
+          </div>
+        </TooltipTrigger>
         <TooltipContent
           side="right"
           className="bg-[#103713] text-[#FFFDF5] border-none"

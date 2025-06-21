@@ -1,8 +1,8 @@
-// src/pages/Chatbot.jsx
 import { useEffect, useRef, useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Loader2, User, Bot } from "lucide-react";
+import axios from "axios";
 
 export default function Chatbot() {
   const [messages, setMessages] = useState([
@@ -12,59 +12,87 @@ export default function Chatbot() {
   const [loading, setLoading] = useState(false);
   const chatEndRef = useRef(null);
 
+  const scrollToBottom = () => {
+    chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages]);
+
+  const cleanReply = (text) => {
+    // Remove bold markers
+    let cleaned = text.replace(/\*\*(.*?)\*\*/g, "$1");
+    // Remove single asterisks around words
+    cleaned = cleaned.replace(/\*(.*?)\*/g, "$1");
+    // Optionally remove excess blank lines
+    cleaned = cleaned.replace(/\n{3,}/g, "\n\n");
+    return cleaned.trim();
+  };
+
   const handleSend = async () => {
     if (!input.trim()) return;
 
-    const userMessage = { role: "user", text: input };
+    const userMessage = { role: "user", text: input.trim() };
     setMessages((prev) => [...prev, userMessage]);
     setInput("");
     setLoading(true);
 
-    // Simulate response delay
-    setTimeout(() => {
-      const botResponse = {
+    try {
+      const response = await axios.post(
+        "http://localhost:5000/api/chatbot",
+        { message: input.trim() },
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+
+      const botText = cleanReply(response.data.reply);
+
+      const botMessage = {
         role: "bot",
-        text: "This is a sample response. We'll replace this with real API output later.",
+        text: botText,
       };
-      setMessages((prev) => [...prev, botResponse]);
+      setMessages((prev) => [...prev, botMessage]);
+    } catch (err) {
+      console.error("Chatbot error:", err);
+      setMessages((prev) => [
+        ...prev,
+        { role: "bot", text: "Sorry, I couldn't process your request." },
+      ]);
+    } finally {
       setLoading(false);
-    }, 1500);
+    }
   };
 
-  useEffect(() => {
-    chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [messages]);
 
   return (
     <div className="flex flex-col h-[calc(100vh-80px)] p-4 md:p-6 md:pb-2 pb-24">
-      <h1 className="text-2xl font-semibold mb-4 text-[#103713]">CropMate Chatbot</h1>
+      <h1 className="text-2xl font-semibold mb-4 text-[#103713]">
+        CropMate Chatbot
+      </h1>
 
-      {/* Chat Area */}
+      {/* Chat area */}
       <div className="flex-1 overflow-y-auto bg-white rounded-xl p-4 shadow-inner space-y-4">
         {messages.map((msg, index) => {
           const isUser = msg.role === "user";
           return (
             <div
               key={index}
-              className={`flex items-start max-w-[80%] ${
-                isUser ? "ml-auto flex-row-reverse" : "mr-auto"
-              }`}
+              className={`flex items-start max-w-[90%] ${isUser ? "ml-auto flex-row-reverse" : "mr-auto"
+                }`}
             >
-              {/* Icon with circular background */}
-              <div
-                className={`flex items-center justify-center w-8 h-8 rounded-full text-white flex-shrink-0 bg-primary`}
-              >
+              <div className="flex items-center justify-center w-8 h-8 rounded-full text-white flex-shrink-0 bg-primary">
                 {isUser ? <User size={18} /> : <Bot size={18} />}
               </div>
 
-              {/* Message bubble */}
               <div
-                className={`mx-3 px-4 py-2 rounded-xl whitespace-pre-line text-sm md:text-base ${
-                  isUser
+                className={` mx-1 px-2 md:mx-3 md:px-4 py-2 rounded-xl whitespace-pre-line text-sm md:text-base break-words ${isUser
                     ? "bg-green-100 text-right text-green-900"
                     : "bg-[#E2DBD0] text-[#103713]"
-                }`}
-                style={{ wordBreak: "break-word" }}
+                  }`}
               >
                 {msg.text}
               </div>
@@ -72,12 +100,12 @@ export default function Chatbot() {
           );
         })}
         {loading && (
-          <div className="text-sm text-gray-500 italic">Bot is typing...</div>
+          <div className="italic text-sm text-gray-500">Bot is typing...</div>
         )}
         <div ref={chatEndRef} />
       </div>
 
-      {/* Input Area */}
+      {/* Input area */}
       <div className="mt-4 flex gap-2">
         <Input
           type="text"
