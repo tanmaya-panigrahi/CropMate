@@ -61,6 +61,7 @@ export default function Diagnose() {
     formData.append("description", description);
 
     try {
+      
       const response = await axios.post(
          `${import.meta.env.VITE_API_URL}/api/diagnose`,
         formData,
