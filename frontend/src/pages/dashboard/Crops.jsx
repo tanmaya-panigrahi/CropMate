@@ -31,7 +31,7 @@ export default function Crops() {
   useEffect(() => {
     const fetchCrops = async () => {
       try {
-        const res = await axios.get("http://localhost:5000/api/crops");
+        const res = await axios.get( `${import.meta.env.VITE_API_URL}/api/crops`);
         setCrops(res.data);
       } catch (err) {
         console.error("Failed to load crops:", err);
