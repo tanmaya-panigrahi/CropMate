@@ -3,12 +3,12 @@ import { initializeApp } from "firebase/app";
 import { getAuth, GoogleAuthProvider ,updateProfile} from "firebase/auth";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyA7slqbrZ0xOyKvx_fAFeHYA-zNo_Msv9Q",
-  authDomain: "cropmate-b0b90.firebaseapp.com",
-  projectId: "cropmate-b0b90",
-  storageBucket: "cropmate-b0b90.firebasestorage.app",
-  messagingSenderId: "549118470958",
-  appId: "1:549118470958:web:6aadcd510ce5c0fae528bf"
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_FIREBASE_APP_ID
 };
 
 

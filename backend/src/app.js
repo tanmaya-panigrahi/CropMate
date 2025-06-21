@@ -4,6 +4,9 @@ import { config } from "dotenv";
 import dbConnect from "./config/db.js";
 import diagnoseRoutes from "./routes/diagnose.routes.js";
 import historyRoutes from "./routes/history.routes.js";
+import chatbotRoutes from "./routes/chatbot.routes.js";
+import cropsRoutes from "./routes/crops.routes.js";
+import dashboardRoutes from "./routes/dashboard.routes.js";
 
 // Load environment variables directly
 config();
@@ -21,6 +24,10 @@ app.use(cors({
 app.use(json()); // Parse JSON
 app.use("/api/diagnose", diagnoseRoutes);
 app.use("/api/history", historyRoutes);
+app.use("/api/chatbot", chatbotRoutes);
+app.use("/api/crops", cropsRoutes);
+app.use("/api/dashboard", dashboardRoutes);
+
 
 // Test Route
 app.get("/", (req, res) => {

@@ -21,7 +21,7 @@ export const AuthProvider = ({ children }) => {
         try {
             const userCredential = await createUserWithEmailAndPassword(auth, email, password);
             await updateProfile(userCredential.user, { displayName: name });
-            setUser(auth.currentUser); 
+            setUser(auth.currentUser);
             return userCredential;
         } catch (error) {
             throw error; // let the UI handle this
@@ -38,15 +38,31 @@ export const AuthProvider = ({ children }) => {
     };
 
     useEffect(() => {
-        const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-            setUser(currentUser);
+        const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
+            if (currentUser) {
+                try {
+                    // 🔄 Force refresh token to make sure it's valid (especially after long gaps)
+                    const token = await currentUser.getIdToken(true); // true = force refresh
+                    localStorage.setItem("token", token); // backend will use this
+
+                    setUser(currentUser);
+                } catch (err) {
+                    console.error("Token refresh failed:", err);
+                    await signOut(auth);
+                    localStorage.removeItem("token");
+                    setUser(null);
+                }
+            } else {
+                localStorage.removeItem("token");
+                setUser(null);
+            }
+
             setLoading(false);
         });
 
-
-
-        return () => unsubscribe(); // cleanup
+        return () => unsubscribe();
     }, []);
+
 
     const logout = () => signOut(auth);
 

@@ -17,14 +17,20 @@ import Crops from "@/pages/dashboard/Crops";
 import ChatBot from "@/pages/dashboard/ChatBot";
 import Profile from "@/pages/dashboard/Profile";
 import About from "@/pages/dashboard/About";
-import PlantDiseaseDetector from "./pages/dashboard/PlantDiseaseDetector";
-
+import Error404 from "@/pages/Error404";
 function App() {
   return (
     <>
       <Routes>
         {/* Public Routes */}
-        <Route path="/" element={<Landing />} />
+        <Route
+          path="/"
+          element={
+            <RedirectIfAuthenticated>
+              <Landing />
+            </RedirectIfAuthenticated>
+          }
+        />
         <Route
           path="/login"
           element={
@@ -59,12 +65,12 @@ function App() {
           <Route path="history" element={<History />} />
           <Route path="crops" element={<Crops />} />
           <Route path="chatbot" element={<ChatBot />} />
-          <Route path="plant-disease-detector" element={<PlantDiseaseDetector />} />
 
           {/* Topbar Dropdown Pages */}
           <Route path="profile" element={<Profile />} />
           <Route path="about" element={<About />} />
         </Route>
+        <Route path="*" element={<Error404 />} />
       </Routes>
 
       <Toaster position="top-right" />

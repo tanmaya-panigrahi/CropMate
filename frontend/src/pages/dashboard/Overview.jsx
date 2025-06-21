@@ -1,33 +1,67 @@
+import { useEffect, useState } from "react";
 import { useAuth } from "@/context/AuthContext";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { LayoutDashboard, History, Bot, Leaf, Info } from "lucide-react";
 import { Link } from "react-router-dom";
 import { format } from "date-fns";
+import axios from "axios";
 
 export default function Overview() {
   const { user } = useAuth();
   const name = user?.displayName?.split(" ")[0] || "Farmer";
 
-  const stats = [
-    { icon: LayoutDashboard, title: "Diagnoses", value: 5 },
-    { icon: Leaf, title: "Crops Saved", value: 12 },
-    { icon: History, title: "History Entries", value: 8 },
-    { icon: Bot, title: "ChatBot Uses", value: 16 },
-  ];
+  const [stats, setStats] = useState({
+    diagnoses: 0,
+    cropsSaved: 0,
+    history: 0,
+    chatbotUses: 0,
+  });
 
-  const recentActivity = [
-    { crop: "Rice", result: "Leaf Blight", date: "May 27, 2025" },
-    { crop: "Tomato", result: "Healthy", date: "May 25, 2025" },
-    { crop: "Wheat", result: "Rust Disease", date: "May 22, 2025" },
-  ];
+  const [recentActivity, setRecentActivity] = useState([]);
 
   const tips = [
-    "Avoid watering at noon to prevent fungal growth.",
-    "Inspect leaves weekly for early signs of disease.",
-    "Use crop rotation to improve soil health.",
-  ];
+  "Avoid watering at noon to prevent fungal growth.",
+  "Inspect leaves weekly for early signs of disease.",
+  "Use crop rotation to improve soil health.",
+  "Add compost or organic manure to enrich soil fertility.",
+  "Remove weeds regularly to reduce pest habitats.",
+  "Water early in the morning or late evening for better absorption.",
+  "Use mulch to retain moisture and regulate soil temperature.",
+  "Choose disease-resistant crop varieties when possible.",
+  "Clean tools regularly to prevent disease spread.",
+  "Avoid over-fertilizing, as it can harm plants and the environment."
+];
+
   const randomTip = tips[Math.floor(Math.random() * tips.length)];
+
+  useEffect(() => {
+    const fetchDashboardData = async () => {
+      try {
+        const token = await user.getIdToken();
+        const headers = { Authorization: `Bearer ${token}` };
+
+        // Fetch stats
+        const statsRes = await axios.get("http://localhost:5000/api/dashboard/summary", { headers });
+        setStats(statsRes.data);
+
+        // Fetch recent activity
+        const recentRes = await axios.get("http://localhost:5000/api/dashboard/recent", { headers });
+        setRecentActivity(recentRes.data);
+      } catch (err) {
+        console.error("Dashboard fetch error:", err);
+      }
+    };
+
+    if (user) fetchDashboardData();
+  }, [user]);
+
+  const statsDisplay = [
+    { icon: LayoutDashboard, title: "Diagnoses", value: stats.diagnoses },
+    { icon: Leaf, title: "Diseases", value: stats.uniqueDiseaseSaved },
+    { icon: History, title: "History Entries", value: stats.history },
+    { icon: Bot, title: "ChatBot Uses", value: stats.chatbotUses },
+  ];
 
   return (
     <div className="p-6 md:p-10 min-h-screen pb-[100px] text-primary">
@@ -41,7 +75,7 @@ export default function Overview() {
 
       {/* Stats Section */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
-        {stats.map((stat) => (
+        {statsDisplay.map((stat) => (
           <Card
             key={stat.title}
             className="bg-white border border-primary shadow-md rounded-2xl hover:shadow-xl transition duration-300"
@@ -65,16 +99,22 @@ export default function Overview() {
       <div className="mb-16">
         <h2 className="text-3xl font-semibold mb-6">🕓 Recent Diagnoses</h2>
         <div className="bg-white rounded-xl shadow-md p-6 space-y-6 border">
-          {recentActivity.map((item, idx) => (
-            <div
-              key={idx}
-              className="flex flex-col md:flex-row md:justify-between text-lg gap-2 md:gap-0 border-b last:border-b-0 pb-4 md:pb-0"
-            >
-              <span>🌾 <span className="font-semibold">{item.crop}</span></span>
-              <span className="text-gray-800">{item.result}</span>
-              <span className="text-sm text-gray-500">{item.date}</span>
-            </div>
-          ))}
+          {recentActivity.length === 0 ? (
+            <p className="text-muted-foreground italic">No recent diagnoses found.</p>
+          ) : (
+            recentActivity.map((item, idx) => (
+              <div
+                key={idx}
+                className="flex flex-col md:flex-row md:justify-between text-lg gap-2 md:gap-0 border-b last:border-b-0 pb-4 md:pb-0"
+              >
+                <span>🌾 <span className="font-semibold">{item.disease}</span></span>
+                <span className="text-gray-800">{item.description.length==0?`No description`:item.description}</span>
+                <span className="text-sm text-gray-500">
+                  {format(new Date(item.createdAt), "MMMM d, yyyy")}
+                </span>
+              </div>
+            ))
+          )}
         </div>
       </div>
 
@@ -82,7 +122,7 @@ export default function Overview() {
       <div className="mb-16">
         <h2 className="text-3xl font-semibold mb-6">🚀 Quick Actions</h2>
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-6">
-          {[
+          {[ 
             { label: "📸 Diagnose", to: "/dashboard/diagnose" },
             { label: "📜 History", to: "/dashboard/history" },
             { label: "🤖 ChatBot", to: "/dashboard/chatbot" },
