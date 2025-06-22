@@ -7,6 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Skeleton } from "@/components/ui/skeleton";
 import { ImagePlus, Camera, History } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import ReactMarkdown from "react-markdown";
 
 export default function Diagnose() {
   const [image, setImage] = useState(null);
@@ -61,9 +62,9 @@ export default function Diagnose() {
     formData.append("description", description);
 
     try {
-      
+
       const response = await axios.post(
-         `${import.meta.env.VITE_API_URL}/api/diagnose`,
+        `${import.meta.env.VITE_API_URL}/api/diagnose`,
         formData,
         {
           headers: {
@@ -235,11 +236,7 @@ export default function Diagnose() {
           </div>
 
           <div className="prose max-w-none prose-sm text-gray-700">
-            {diagnosis.explanation
-              .split("\n\n")
-              .map((block, i) => (
-                <p key={i} dangerouslySetInnerHTML={{ __html: block.replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>") }} />
-              ))}
+            <ReactMarkdown>{diagnosis.explanation}</ReactMarkdown>
           </div>
         </div>
       )}
