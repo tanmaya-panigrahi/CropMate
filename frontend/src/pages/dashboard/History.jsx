@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { Card, CardContent } from "@/components/ui/card";
@@ -6,6 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { format } from "date-fns";
 import { ChevronLeft, ChevronRight, Eye } from "lucide-react";
+import ReactMarkdown from "react-markdown";
 
 const ITEMS_PER_PAGE = 6;
 
@@ -19,7 +21,7 @@ export default function History() {
   useEffect(() => {
     const fetchHistory = async () => {
       try {
-        const response = await axios.get( `${import.meta.env.VITE_API_URL}/api/history`, {
+        const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/history`, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
@@ -125,11 +127,14 @@ export default function History() {
                           <strong>Disease:</strong> {selectedEntry.disease}
                         </p>
                         <div className="prose prose-sm max-w-none text-gray-700">
-                          {selectedEntry.explanation
-                            .split("\n\n")
-                            .map((block, i) => (
-                              <p key={i}>{block}</p>
-                            ))}
+                          <ReactMarkdown
+                            components={{
+                              p: ({ node, ...props }) => <p className="mb-2" {...props} />,
+                              li: ({ node, ...props }) => <li className="ml-4 list-disc" {...props} />,
+                            }}
+                          >
+                            {selectedEntry.explanation}
+                          </ReactMarkdown>
                         </div>
                       </div>
                     )}
