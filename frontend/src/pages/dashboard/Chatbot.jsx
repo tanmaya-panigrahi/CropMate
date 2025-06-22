@@ -1,8 +1,10 @@
+/* eslint-disable no-unused-vars */
 import { useEffect, useRef, useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Loader2, User, Bot } from "lucide-react";
 import axios from "axios";
+import ReactMarkdown from "react-markdown";
 
 export default function Chatbot() {
   const [messages, setMessages] = useState([
@@ -89,12 +91,19 @@ export default function Chatbot() {
               </div>
 
               <div
-                className={` mx-1 px-2 md:mx-3 md:px-4 py-2 rounded-xl whitespace-pre-line text-sm md:text-base break-words ${isUser
-                    ? "bg-green-100 text-right text-green-900"
-                    : "bg-[#E2DBD0] text-[#103713]"
+                className={`mx-1 px-2 md:mx-3 md:px-4 py-2 rounded-xl text-sm md:text-base break-words ${isUser
+                  ? "bg-green-100 text-right text-green-900"
+                  : "bg-[#E2DBD0] text-[#103713]"
                   }`}
               >
-                {msg.text}
+                <ReactMarkdown
+                  components={{
+                    p: ({ node, ...props }) => <p className="mb-2" {...props} />,
+                    li: ({ node, ...props }) => <li className="ml-4 list-disc" {...props} />,
+                  }}
+                >
+                  {msg.text}
+                </ReactMarkdown>
               </div>
             </div>
           );

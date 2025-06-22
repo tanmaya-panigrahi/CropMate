@@ -2,7 +2,7 @@ import React from 'react';
 
 const features = [
   { title: '📷 Diagnose Crops', desc: 'Upload a photo and get instant diagnosis of crop diseases.' },
-  { title: '🎙 Voice Support', desc: 'Talk to CropMate for quick advice on the go.' },
+  { title: '🤖 Chatbot Support', desc: 'Talk to CropMate chatbot for quick advice on the go.' },
   { title: '📊 Personalized Insights', desc: 'Get tips tailored to your crop and region.' },
 ];
 

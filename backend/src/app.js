@@ -8,6 +8,27 @@ import chatbotRoutes from "./routes/chatbot.routes.js";
 import cropsRoutes from "./routes/crops.routes.js";
 import dashboardRoutes from "./routes/dashboard.routes.js";
 
+
+const url = "https://cropmate-hb1k.onrender.com"; // Replace with your actual URL
+const interval = 14 * 60 * 1000; // 14 minutes (render free tier sleeps after 15 minutes of inactivity)
+
+function reloadWebsite() {
+  axios.get(url)
+    .then((response) => {
+      console.log("Website reloaded successfully:", new Date().toISOString());
+    })
+    .catch((error) => {
+      console.error(`Website reload error: ${error.message}`);
+    });
+}
+
+// Start the reload interval after the server is up and running
+setTimeout(() => {
+  setInterval(reloadWebsite, interval);
+  console.log("Website auto-reload started");
+}, 10000); // Wait 10 seconds after server start before beginning the reload cycle
+
+
 // Load environment variables directly
 config();
 
@@ -18,7 +39,7 @@ const app = express();
 
 // Middleware
 app.use(cors({
-  origin: process.env.CLIENT_ORIGIN || 'https://crop-mate-eight.vercel.app' , // Your frontend URL
+  origin: process.env.CLIENT_ORIGIN || 'https://crop-mate-eight.vercel.app', // Your frontend URL
   credentials: true
 }));
 app.use(json()); // Parse JSON
