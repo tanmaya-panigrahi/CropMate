@@ -10,4 +10,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Curl your backend URL
-        run: curl --silent --show-error https://cropmate-hb1k.onrender.com
+        run: curl --fail --silent --show-error -A "keep-alive-agent" https://cropmate-hb1k.onrender.com/
